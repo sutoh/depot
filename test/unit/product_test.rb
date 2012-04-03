@@ -1,3 +1,4 @@
+#encoding: utf-8
 require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
@@ -56,21 +57,44 @@ class ProductTest < ActiveSupport::TestCase
   
   test "product is noty valid without a unique title" do
     product = Product.new(
-      title:        products(:ruby).title,
+      title:        products(:ruby).title, 
       description:  "yyy",
       price:        1,
       image_url:    "fred.gif")
       assert !product.save
-      assert_equal "has already been taken", product.errors[:title].join(': ')
+      assert_equal "has already been taken", 
+      product.errors[:title].join(': ')
   end
   
-  test "product is not valid without a unique title - i18n" do product = Product.new(
-    title: products(:ruby).title,
-    description: "yyy", 
-    price: 1, 
-    image_url: "fred.gif")
-  assert !product.save
-  assert_equal I18n.translate('activerecord.errors.messages.taken'),
-    product.errors[:title].join('; ')
+  test "product is not valid without a unique title - i18n" do 
+    product = Product.new(
+      title: products(:ruby).title,
+      description: "yyy", 
+      price: 1, 
+      image_url: "fred.gif")
+    assert !product.save
+    assert_equal I18n.translate(
+      'activerecord.errors.messages.taken'),
+      product.errors[:title].join('; ')
+  end
+  
+  test "title is length 10 Over test" do
+    product = Product.new(
+      description:  "length 10 Over",
+      price:        1,
+      image_url:    "length.jpg"
+    )
+    
+    #title NULL
+    product.title = "This is an acceptable title"
+    assert product.valid?, "product title shouldn't be invalid"
+    
+    product.title = "a123456789a"
+    assert product.valid?
+    
+    product.title = "no"
+    assert product.invalid?
+    assert_equal "is too short (minimum is 5 characters)",
+      product.errors[:title].join('; ')
   end
 end

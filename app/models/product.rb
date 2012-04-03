@@ -7,4 +7,8 @@ class Product < ActiveRecord::Base
     with: %r{\.(gif|jpg|png)$}i,
     message: 'はGIF、JPG、PNGのURLでなければなりません。'
   }
+  validates :title, :length => {
+    :minimum => 5
+    #, :message => "must be at least ten characters long." 
+  } 
 end
