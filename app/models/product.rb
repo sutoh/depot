@@ -15,5 +15,14 @@ class Product < ActiveRecord::Base
     :minimum => 5
     #, :message => "must be at least ten characters long." 
   }
-   
+  
+  private
+  # この商品を参照している品目が無いことを確認する
+  def ensure_not_referenced_by_any_line_item
+    if line_item.empty?
+      return true
+    else
+      errors.add(:base,'品目が存在します')
+      return false
+    end
 end
