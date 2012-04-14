@@ -1,10 +1,15 @@
 - if notice
 	%p#notice= notice
 
+= count_index_visits 
 %h1 Pragmaticカタログ
+%p= report_index_visits
 - @products.each do |product|
 	.entry
-		= image_tag(product.image_url)
+		// = image_tag(product.image_url)
+		= link_to image_tag(product.image_url),
+			line_items_path(:product_id => product),
+			:method => :post
 		%h3= product.title
 		= sanitize(product.description)
 		.price_line
