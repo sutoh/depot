@@ -27,9 +27,10 @@
           %a.brand{:href => "#"} Depot
           .container.nav-collapse
             %ul.nav
-              %li= link_to "Link1", "/path1"
-              %li= link_to "Link2", "/path2"
-              %li= link_to "Link3", "/path3"
+              %li= link_to "Home", "/"
+              %li= link_to "FAQ", "/"
+              %li= link_to "News", "/"
+              %li= link_to "問い合わせ", "/"
           / /.nav-collapse
     .container
       .content
@@ -40,11 +41,12 @@
             .well.sidebar-nav
               %h3 Sidebar
               %ul.nav.nav-list
-                %li.nav-header Sidebar Load :
+                %li.nav-header SidebarLoad:
                 %span #{@current_time}
-                %li= link_to "Link1", "/path1"
-                %li= link_to "Link2", "/path2"
-                %li= link_to "Link3", "/path3"
+                %li= link_to "Home", "/"
+                %li= link_to "FAQ", "/"
+                %li= link_to "News", "/"
+                %li= link_to "問い合わせ", "/"
             / /.well
           / /span
         / /row
